@@ -51,7 +51,6 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina
 		            [TBDISCIPLINA]
 		        WHERE
                     [NUMERO] = @NUMERO";
-
         #endregion
 
         public ValidationResult Inserir(Disciplina novaDisciplina)
