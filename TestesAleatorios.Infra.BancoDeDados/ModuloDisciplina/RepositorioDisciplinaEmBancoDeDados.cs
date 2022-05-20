@@ -71,6 +71,8 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina
             conexaoComBanco.Open();
 
             var id = comandoInsercao.ExecuteScalar();
+            //utilizado para executar instruções SQL como count, sum, min, esse método retorna apenas um valor como resultado
+
             novaDisciplina.Numero = Convert.ToInt32(id);
 
             conexaoComBanco.Close();
@@ -96,6 +98,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina
             conexaoComBanco.Open();
 
             comandoEdicao.ExecuteNonQuery();
+            //é utilizado para executar instruções SQL que não retornam dados
             conexaoComBanco.Close();
 
             return resultadoValidacao;
@@ -112,6 +115,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina
             conexaoComBanco.Open();
 
             int numeroRegistrosExcluidos = comandoExclusao.ExecuteNonQuery();
+            //é utilizado para executar instruções SQL que não retornam dados
 
             var resultadoValidacao = new ValidationResult();
 
@@ -132,6 +136,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina
             conexaoComBanco.Open();
 
             SqlDataReader leitorContato = comandoSelecao.ExecuteReader();
+            //método utilizado para execultar uma instrução SQL que retorna um DataReader
 
             List<Disciplina> disciplinas = new List<Disciplina>();
 
@@ -157,6 +162,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina
 
             conexaoComBanco.Open();
             SqlDataReader leitorDisciplina = comandoSelecao.ExecuteReader();
+            //método utilizao para execultar uma instrução SQL que retorna um DataReader
 
             Disciplina disciplina = null;
             if (leitorDisciplina.Read())
