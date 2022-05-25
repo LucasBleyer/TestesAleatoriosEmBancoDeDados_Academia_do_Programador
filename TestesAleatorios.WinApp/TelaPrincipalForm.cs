@@ -7,6 +7,7 @@ using TestesAleatorios.Infra.Arquivos.ModuloMateria;
 using TestesAleatorios.Infra.Arquivos.ModuloQuestao;
 using TestesAleatorios.Infra.Arquivos.ModuloTeste;
 using TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina;
+using TestesAleatorios.Infra.BancoDeDados.ModuloMateria;
 using TestesAleatorios.WinApp.Compartilhado;
 using TestesAleatorios.WinApp.ModuloDisciplina;
 using TestesAleatorios.WinApp.ModuloMateria;
@@ -151,10 +152,11 @@ namespace TestesAleatorios.WinApp
 
         private void InicializarControladores()
         {
+            var repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
+            var repositorioMateria = new RepositorioMateriaEmBancoDeDados();
+
             var repositorioTeste = new RepositorioTesteEmArquivo(contextoDados);
             var repositorioQuestao = new RepositorioQuestaoEmArquivo(contextoDados);
-            var repositorioMateria = new RepositorioMateriaEmArquivo(contextoDados);
-            var repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
 
             controladores = new Dictionary<string, ControladorBase>();
 
