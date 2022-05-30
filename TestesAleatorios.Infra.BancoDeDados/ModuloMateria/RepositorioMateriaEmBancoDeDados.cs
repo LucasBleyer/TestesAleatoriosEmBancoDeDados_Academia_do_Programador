@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestesAleatorios.Dominio.Compartilhado;
 using TestesAleatorios.Dominio.ModuloMateria;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
 {
@@ -59,7 +61,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
                     [NUMERO] = @NUMERO";
         #endregion
 
-        public ValidationResult Inserir(Materia novaMateria)
+        FluentValidation.Results.ValidationResult IRepositorioMateria.Inserir(Materia novaMateria)
         {
             var validador = new ValidadorMateria();
 
@@ -86,7 +88,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
             return resultadoValidacao;
         }
 
-        public ValidationResult Editar(Materia materia)
+        FluentValidation.Results.ValidationResult IRepositorioMateria.Editar(Materia materia)
         {
             var validador = new ValidadorMateria();
 
@@ -110,13 +112,13 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
             return resultadoValidacao;
         }
 
-        public ValidationResult Excluir(Materia materia)
+        FluentValidation.Results.ValidationResult IRepositorio<Materia>.Excluir(Materia registro)
         {
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
 
             SqlCommand comandoExclusao = new SqlCommand(sqlExcluir, conexaoComBanco);
 
-            comandoExclusao.Parameters.AddWithValue("NUMERO", materia.Numero);
+            comandoExclusao.Parameters.AddWithValue("NUMERO", registro.Numero);
 
             conexaoComBanco.Open();
 
@@ -148,7 +150,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
 
             while (leitorMateria.Read())
             {
-                Materia materia = ConverterParaDisciplina(leitorMateria);
+                Materia materia = ConverterParaMateria(leitorMateria);
 
                 materias.Add(materia);
             }
@@ -172,46 +174,34 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
 
             Materia materia = null;
             if (leitorMateria.Read())
-                materia = ConverterParaDisciplina(leitorMateria);
+                materia = ConverterParaMateria(leitorMateria);
 
             conexaoComBanco.Close();
 
             return materia;
         }
 
-        private static Materia ConverterParaDisciplina(SqlDataReader leitorDisciplina)
+        private static Materia ConverterParaMateria(SqlDataReader leitorMateria)
         {
-            int numero = Convert.ToInt32(leitorDisciplina["NUMERO"]);
-            string nome = Convert.ToString(leitorDisciplina["NOME"]);
+            int numero = Convert.ToInt32(leitorMateria["NUMERO"]);
+            string nome = Convert.ToString(leitorMateria["NOME"]);
+            int serie = Convert.ToInt32(leitorMateria["SERIE"]);
 
             var materia = new Materia
             {
                 Numero = numero,
                 Nome = nome,
+                Serie = serie.ToString()
             };
 
             return materia;
         }
 
-        private static void ConfigurarParametrosDisciplina(Materia novaDisciplina, SqlCommand comando)
+        private static void ConfigurarParametrosDisciplina(Materia novaMateria, SqlCommand comando)
         {
-            comando.Parameters.AddWithValue("NUMERO", novaDisciplina.Numero);
-            comando.Parameters.AddWithValue("NOME", novaDisciplina.Nome);
-        }
-
-        FluentValidation.Results.ValidationResult IRepositorioMateria.Inserir(Materia materia)
-        {
-            throw new NotImplementedException();
-        }
-
-        FluentValidation.Results.ValidationResult IRepositorioMateria.Editar(Materia materia)
-        {
-            throw new NotImplementedException();
-        }
-
-        FluentValidation.Results.ValidationResult IRepositorio<Materia>.Excluir(Materia registro)
-        {
-            throw new NotImplementedException();
+            comando.Parameters.AddWithValue("NUMERO", novaMateria.Numero);
+            comando.Parameters.AddWithValue("NOME", novaMateria.Nome);
+            comando.Parameters.AddWithValue("SERIE", novaMateria.Serie);
         }
     }
 }
