@@ -135,14 +135,14 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloDisciplina
 
             conexaoComBanco.Open();
 
-            SqlDataReader leitorContato = comandoSelecao.ExecuteReader();
+            SqlDataReader leitorDisciplina = comandoSelecao.ExecuteReader();
             //método utilizado para execultar uma instrução SQL que retorna um DataReader
 
             List<Disciplina> disciplinas = new List<Disciplina>();
 
-            while (leitorContato.Read())
+            while (leitorDisciplina.Read())
             {
-                Disciplina disciplina = ConverterParaDisciplina(leitorContato);
+                Disciplina disciplina = ConverterParaDisciplina(leitorDisciplina);
 
                 disciplinas.Add(disciplina);
             }
