@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestesAleatorios.Dominio.Compartilhado;
 using TestesAleatorios.Dominio.ModuloMateria;
 
 namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
@@ -17,38 +18,43 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
         private const string sqlInserir =
             @"INSERT INTO [TBDISCIPLINA] 
                 (
-                    [NOME]
+                    [NOME],
+                    [SERIE]
 	            )
 	            VALUES
                 (
-                    @NOME
+                    @NOME,
+                    @SERIE
                 );SELECT SCOPE_IDENTITY();";
 
         private const string sqlEditar =
-            @"UPDATE [TBDISCIPLINA]	
+            @"UPDATE [TBMATERIA]	
 		        SET
-			        [NOME] = @NOME
+			        [NOME] = @NOME,
+                    [SERIE] = @SERIE
 		        WHERE
 			        [NUMERO] = @NUMERO";
 
         private const string sqlExcluir =
-            @"DELETE FROM [TBDISCIPLINA]
+            @"DELETE FROM [TBMATERIA]
 		        WHERE
 			        [NUMERO] = @NUMERO";
 
         private const string sqlSelecionarTodos =
             @"SELECT 
 		            [NUMERO],
-                    [NOME]
+                    [NOME],
+                    [SERIE]
 	            FROM 
-		            [TBDISCIPLINA]";
+		            [TBMATERIA]";
 
         private const string sqlSelecionarPorNumero =
             @"SELECT 
 		            [NUMERO],
-                    [NOME]
+                    [NOME],
+                    [SERIE]
 	            FROM 
-		            [TBDISCIPLINA]
+		            [TBMATERIA]
 		        WHERE
                     [NUMERO] = @NUMERO";
         #endregion
@@ -191,6 +197,21 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
         {
             comando.Parameters.AddWithValue("NUMERO", novaDisciplina.Numero);
             comando.Parameters.AddWithValue("NOME", novaDisciplina.Nome);
+        }
+
+        FluentValidation.Results.ValidationResult IRepositorioMateria.Inserir(Materia materia)
+        {
+            throw new NotImplementedException();
+        }
+
+        FluentValidation.Results.ValidationResult IRepositorioMateria.Editar(Materia materia)
+        {
+            throw new NotImplementedException();
+        }
+
+        FluentValidation.Results.ValidationResult IRepositorio<Materia>.Excluir(Materia registro)
+        {
+            throw new NotImplementedException();
         }
     }
 }
