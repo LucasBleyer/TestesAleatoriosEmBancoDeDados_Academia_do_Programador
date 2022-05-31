@@ -46,7 +46,8 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
             @"SELECT 
 		            [NUMERO],
                     [NOME],
-                    [SERIE]
+                    [SERIE],
+                    [NUMERO_DISCIPLINA]
 	            FROM 
 		            [TBMATERIA]";
 
@@ -54,7 +55,8 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
             @"SELECT 
 		            [NUMERO],
                     [NOME],
-                    [SERIE]
+                    [SERIE],
+                    [NUMERO_DISCIPLINA]
 	            FROM 
 		            [TBMATERIA]
 		        WHERE
@@ -74,7 +76,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
 
             SqlCommand comandoInsercao = new SqlCommand(sqlInserir, conexaoComBanco);
 
-            ConfigurarParametrosDisciplina(novaMateria, comandoInsercao);
+            ConfigurarParametrosMateria(novaMateria, comandoInsercao);
 
             conexaoComBanco.Open();
 
@@ -101,7 +103,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
 
             SqlCommand comandoEdicao = new SqlCommand(sqlEditar, conexaoComBanco);
 
-            ConfigurarParametrosDisciplina(materia, comandoEdicao);
+            ConfigurarParametrosMateria(materia, comandoEdicao);
 
             conexaoComBanco.Open();
 
@@ -197,7 +199,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
             return materia;
         }
 
-        private static void ConfigurarParametrosDisciplina(Materia novaMateria, SqlCommand comando)
+        private static void ConfigurarParametrosMateria(Materia novaMateria, SqlCommand comando)
         {
             comando.Parameters.AddWithValue("NUMERO", novaMateria.Numero);
             comando.Parameters.AddWithValue("NOME", novaMateria.Nome);
