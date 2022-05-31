@@ -75,7 +75,7 @@ namespace TestesAleatorios.WinApp.ModuloMateria
             {
                 materia.Numero = int.Parse(txtNumero.Text);
                 materia.Nome = txtNome.Text;
-                materia.Serie = cbSerie.Text;
+                materia.Serie = int.Parse(cbSerie.Text);
                 materia.Disciplina = (Disciplina)cbDisciplina.SelectedItem;
 
                 var resultadoValidacao = GravarRegistro(materia);

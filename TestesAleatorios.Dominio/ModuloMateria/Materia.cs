@@ -11,7 +11,7 @@ namespace TestesAleatorios.Dominio.ModuloMateria
     public class Materia : EntidadeBase<Materia>
     {
         public string Nome { get; set; }
-        public string Serie { get; set; }
+        public int Serie { get; set; }
 
         public Disciplina Disciplina { get; set; }
 

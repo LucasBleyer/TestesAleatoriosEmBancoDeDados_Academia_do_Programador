@@ -21,7 +21,7 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
             @"INSERT INTO [TBDISCIPLINA] 
                 (
                     [NOME],
-                    [SERIE]
+                    [SERIE],
 	            )
 	            VALUES
                 (
@@ -188,12 +188,13 @@ namespace TestesAleatorios.Infra.BancoDeDados.ModuloMateria
             int numero = Convert.ToInt32(leitorMateria["NUMERO"]);
             string nome = Convert.ToString(leitorMateria["NOME"]);
             int serie = Convert.ToInt32(leitorMateria["SERIE"]);
+            int numero_disciplina = Convert.ToInt32(leitorMateria["NUMERO_DISCIPLINA"]);
 
             var materia = new Materia
             {
                 Numero = numero,
                 Nome = nome,
-                Serie = serie.ToString()
+                Serie = serie
             };
 
             return materia;
